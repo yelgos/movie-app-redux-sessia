@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+          name="description"
+          content="Web site created using create-react-app"
+  />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>Redux Movie App</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root">
+  <!-- Form for adding new movies -->
+  <form id="movieForm">
+    <input type="text" id="title" placeholder="Enter movie title" required>
+    <input type="url" id="image" placeholder="Enter image URL" required>
+    <input type="text" id="director" placeholder="Enter director's name" required>
+    <input type="text" id="genre" placeholder="Enter genre" required>
+    <textarea id="description" placeholder="Enter description"></textarea>
+    <button type="submit">Add Movie</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById('movieForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Create a new movie object from the form inputs
+    const movie = {
+      title: document.getElementById('title').value,
+      image: document.getElementById('image').value,
+      director: document.getElementById('director').value,
+      genre: document.getElementById('genre').value,
+      description: document.getElementById('description').value
+    };
+
+    // Function to create and append movie elements
+    const mainContent = document.getElementById('root');
+
+    // Create a new movie div
+    const movieDiv = document.createElement('div');
+    movieDiv.classList.add('movie');
+
+    // Create image element
+    const img = document.createElement('img');
+    img.src = movie.image;
+    img.alt = movie.title;
+
+    // Create movie info div
+    const movieInfoDiv = document.createElement('div');
+    movieInfoDiv.classList.add('movie-info');
+
+    // Create and append the title
+    const titleH2 = document.createElement('h2');
+    titleH2.textContent = movie.title;
+    movieInfoDiv.appendChild(titleH2);
+
+    // Create and append the director
+    const directorP = document.createElement('p');
+    directorP.textContent = "Director: " + movie.director;
+    movieInfoDiv.appendChild(directorP);
+
+    // Create and append the genre
+    const genreP = document.createElement('p');
+    genreP.textContent = "Genre: " + movie.genre;
+    movieInfoDiv.appendChild(genreP);
+
+    // Create and append the description if it exists
+    if (movie.description) {
+      const descriptionP = document.createElement('p');
+      descriptionP.textContent = movie.description;
+      movieInfoDiv.appendChild(descriptionP);
+    }
+
+    // Append elements to movie div
+    movieDiv.appendChild(img);
+    movieDiv.appendChild(movieInfoDiv);
+
+    // Append movie div to main content
+    mainContent.appendChild(movieDiv);
+
+    // Clear form fields after submission
+    document.getElementById('movieForm').reset();
+  });
+</script>
+</body>
+</html>
